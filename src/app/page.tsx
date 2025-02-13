@@ -18,7 +18,7 @@ import {
 import { Usuario } from "@prisma/client";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 function HomePage() {
@@ -64,7 +64,7 @@ function HomePage() {
   }
 
   return (
-    <>
+    <Suspense fallback={<Spinner size="lg" />}>
       <div className="flex-col p-10">
         <p>
           Esto es una página de prueba para probar el funcionamiento de Vercel
@@ -126,7 +126,7 @@ function HomePage() {
           )}
         </ModalContent>
       </Modal>
-    </>
+    </Suspense>
   );
 }
 
