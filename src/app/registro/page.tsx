@@ -72,7 +72,7 @@ function Registro() {
       const response = await axios.post("/api/usuarios", data);
       toast.dismiss();
       onClose();
-      router.push("/?registroExitoso=true");
+      regresarAInicio();
     } catch (e: any) {
       toast.error(e.response.data.message, { id: "loading" });
     }
