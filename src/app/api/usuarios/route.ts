@@ -1,7 +1,7 @@
 import { createUsuario, getAllUsuarios } from "@/Controllers/usuarioController";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request:NextRequest,response:NextResponse){
+export async function GET(request:NextRequest){
     try{
         const usuarios = await getAllUsuarios()
         if(!usuarios) return NextResponse.json({message:"Hubo un problema al encontrar a los usuarios."},{status:400})
@@ -11,7 +11,7 @@ export async function GET(request:NextRequest,response:NextResponse){
     }
 }
 
-export async function POST(request:NextRequest,response:NextResponse){
+export async function POST(request:NextRequest){
     try{
         const data = await request.json()
         const usuario = await createUsuario(data)
