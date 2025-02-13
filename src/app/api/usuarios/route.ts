@@ -7,7 +7,7 @@ export async function GET(request:NextRequest){
         if(!usuarios) return NextResponse.json({message:"Hubo un problema al encontrar a los usuarios."},{status:400})
         return NextResponse.json(usuarios)
     }catch(e:any){
-        return NextResponse.json({message:"Error interno del servidor."},{status:500})
+        return NextResponse.json({message:e.message},{status:500})
     }
 }
 
@@ -18,6 +18,6 @@ export async function POST(request:NextRequest){
         if(!usuario) return NextResponse.json({message:"Error al crear al usuario."},{status:404})
         return NextResponse.json(usuario)
     }catch(e:any){
-        return NextResponse.json({message:"Error interno del servidor."},{status:500})
+        return NextResponse.json({message:e.message},{status:500})
     }
 }
