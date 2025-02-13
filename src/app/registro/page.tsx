@@ -9,6 +9,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@heroui/react";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -55,6 +56,25 @@ function Registro() {
       onOpen();
     } catch (e: any) {
       toast.error(e.message, { id: "loading" });
+    }
+  }
+
+  async function registrar(onClose: any) {
+    try {
+      toast.loading("Registrando usuario", { id: "loading" });
+      const data = {
+        nombre: nombre,
+        aPat: aPat,
+        aMat: aMat,
+        correo: correo,
+        clave: clave,
+      };
+      const response = await axios.post("/api/usuarios", data);
+      toast.dismiss();
+      onClose();
+      router.push("/?registroExitoso=true");
+    } catch (e: any) {
+      toast.error(e.response.data.message, { id: "loading" });
     }
   }
 
@@ -120,37 +140,30 @@ function Registro() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                ¡Felicidades!
+                ¿Está seguro que desea registrarse?
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Usted ha sido registrado, espere a la siguientes pruebas en lo
-                  que el Fong averigua como moverle a esta vaina.
-                </p>
-                <div className="flex flex-row gap-5">
-                  <img
-                    src="https://media.tenor.com/images/e8864a3f382ac30bb375b7f65d755681/tenor.gif"
-                    width={200}
-                  />
-                  <div className="flex flex-col justify-center">
-                    <h1 className="font-bold">Información:</h1>
-                    <p>
-                      <span className="font-bold">Nombre: </span>
-                      {nombre} {aPat} {aMat}
-                    </p>
-                    <p>
-                      <span className="font-bold">Correo: </span>
-                      {correo}
-                    </p>
-                    <p>
-                      <span className="font-bold">Clave: </span>
-                      {clave}
-                    </p>
-                  </div>
+                <div className="flex flex-col justify-center">
+                  <h1 className="font-bold">Información:</h1>
+                  <p>
+                    <span className="font-bold">Nombre: </span>
+                    {nombre} {aPat} {aMat}
+                  </p>
+                  <p>
+                    <span className="font-bold">Correo: </span>
+                    {correo}
+                  </p>
+                  <p>
+                    <span className="font-bold">Clave: </span>
+                    {clave}
+                  </p>
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button onPress={onClose}>Regresar</Button>
+                <Button onPress={onClose}>Cancelar</Button>
+                <Button color="primary" onPress={() => registrar(onClose)}>
+                  Registrar
+                </Button>
               </ModalFooter>
             </>
           )}
@@ -161,3 +174,8 @@ function Registro() {
 }
 
 export default Registro;
+
+/*<img
+src="https://media.tenor.com/images/e8864a3f382ac30bb375b7f65d755681/tenor.gif"
+width={200}
+/>*/
