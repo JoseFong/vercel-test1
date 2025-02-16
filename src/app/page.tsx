@@ -76,7 +76,7 @@ function HomePage() {
   }
 
   return (
-    <div className="bg-zinc-900 flex-col p-10 min-h-screen min-w-screen overflow-scroll">
+    <div className="bg-zinc-900 flex-col p-10 min-h-screen min-w-screen">
       <p className="text-white">
         Esto es una página de prueba para probar el funcionamiento de Vercel
       </p>
@@ -95,43 +95,44 @@ function HomePage() {
       ) : (
         <>
           <p className="text-white">Usuarios</p>
-
-          <table className="w-full text-white ">
-            <thead className="border-b-1 border-white bg-zinc-800">
-              <tr>
-                <th className="py-2 px-2 text-left">ID</th>
-                <th className="py-2 px-2 text-left">Nombre</th>
-                <th className="py-2 px-2  text-left">Apellido Paterno</th>
-                <th className="py-2 px-2  text-left">Apellido Materno</th>
-                <th className="py-2 px-2 text-left">Correo</th>
-                <th className="py-2 px-2 text-left">Clave</th>
-                <th className="py-2 px-2 text-left">⚙️</th>
-              </tr>
-            </thead>
-            <tbody>
-              {usuarios.map((us: Usuario) => (
-                <tr className="border-white border-b-1" key={us.id}>
-                  <td className="py-2 px-2">{us.id}</td>
-                  <td className="py-2 px-2">{us.nombre}</td>
-                  <td className="py-2 px-2">{us.aPat}</td>
-                  <td className="py-2 px-2">{us.aMat}</td>
-                  <td className="py-2 px-2">{us.correo}</td>
-                  <td className="py-2 px-2">{us.clave}</td>
-                  <td className="py-2 px-2">
-                    <Button
-                      color="danger"
-                      isIconOnly
-                      className="p-1"
-                      size="sm"
-                      onPress={() => abrirModalEliminar(us)}
-                    >
-                      <Image src={trash} alt={"Eliminar"} title="Eliminar" />
-                    </Button>
-                  </td>
+          <div className="overflow-x-scroll overflow-y-scroll">
+            <table className="w-full text-white">
+              <thead className="border-b-1 border-white bg-zinc-800">
+                <tr>
+                  <th className="py-2 px-2 text-left">ID</th>
+                  <th className="py-2 px-2 text-left">Nombre</th>
+                  <th className="py-2 px-2  text-left">Apellido Paterno</th>
+                  <th className="py-2 px-2  text-left">Apellido Materno</th>
+                  <th className="py-2 px-2 text-left">Correo</th>
+                  <th className="py-2 px-2 text-left">Clave</th>
+                  <th className="py-2 px-2 text-left">⚙️</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {usuarios.map((us: Usuario) => (
+                  <tr className="border-white border-b-1" key={us.id}>
+                    <td className="py-2 px-2">{us.id}</td>
+                    <td className="py-2 px-2">{us.nombre}</td>
+                    <td className="py-2 px-2">{us.aPat}</td>
+                    <td className="py-2 px-2">{us.aMat}</td>
+                    <td className="py-2 px-2">{us.correo}</td>
+                    <td className="py-2 px-2">{us.clave}</td>
+                    <td className="py-2 px-2">
+                      <Button
+                        color="danger"
+                        isIconOnly
+                        className="p-1"
+                        size="sm"
+                        onPress={() => abrirModalEliminar(us)}
+                      >
+                        <Image src={trash} alt={"Eliminar"} title="Eliminar" />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
       <Modal
