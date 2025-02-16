@@ -6,10 +6,16 @@ interface Params{
     id: string
 }
 
-export async function DELETE(req:NextRequest, context: { params: { id: string } }){
+export async function DELETE(req:NextRequest){
     try{
-        const id = await parseInt(context.params.id)
-        const user = await deleteUser(id)
+        const url = new URL(req.url);
+        const id = url.pathname.split("/").pop();
+
+        if (!id || isNaN(parseInt(id))) {
+            return NextResponse.json({ message: "ID inválido." }, { status: 400 });
+        }
+
+        const user = await deleteUser(parseInt(id))
         if(!user) return NextResponse.json({message:"Hubo un error al eliminar al usuario."},{status:404})
         return NextResponse.json(user)
     }catch(e:any){
