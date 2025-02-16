@@ -6,9 +6,9 @@ interface Params{
     id: string
 }
 
-export async function DELETE(req:NextRequest,{params}:{params:{id:string}}){
+export async function DELETE(req:NextRequest, context: { params: { id: string } }){
     try{
-        const id = await parseInt(params.id)
+        const id = await parseInt(context.params.id)
         const user = await deleteUser(id)
         if(!user) return NextResponse.json({message:"Hubo un error al eliminar al usuario."},{status:404})
         return NextResponse.json(user)
