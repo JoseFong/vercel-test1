@@ -83,7 +83,7 @@ function Registro() {
   }
 
   return (
-    <div className="flex flex-col p-10 gap-10 bg-zinc-900 h-screen w-screen text-zinc-300">
+    <div className="flex flex-col p-10 gap-10 bg-zinc-900 text-zinc-300 min-w-screen min-h-screen overflow-auto">
       <p>Registro</p>
       <Button onPress={regresarAInicio}>Regresar a inicio</Button>
       <div className="flex flex-col gap-2  p-3">

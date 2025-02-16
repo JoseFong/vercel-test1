@@ -76,7 +76,7 @@ function HomePage() {
   }
 
   return (
-    <div className="bg-zinc-900 flex-col p-10 w-screen h-screen">
+    <div className="bg-zinc-900 flex-col p-10 min-h-screen min-w-screen overflow-scroll">
       <p className="text-white">
         Esto es una página de prueba para probar el funcionamiento de Vercel
       </p>
