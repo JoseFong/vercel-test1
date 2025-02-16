@@ -6,7 +6,7 @@ interface Params{
     id: string
 }
 
-export async function DELETE(req:NextRequest,{params}:{params:Params}){
+export async function DELETE(req:NextRequest,{params}:{params:{id:string}}){
     try{
         const id = await parseInt(params.id)
         const user = await deleteUser(id)
