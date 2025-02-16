@@ -23,3 +23,26 @@ export async function deleteUser(id:number){
         }
     })
 }
+
+export async function updateUser(id:number,data:any){
+    return await prisma.usuario.update({
+        where: {
+            id: id
+        },
+        data: {
+            nombre: data.nombre,
+            aPat: data.aPat,
+            aMat: data.aMat,
+            correo: data.correo,
+            clave:data.clave
+        }
+    })
+}
+
+export async function getSingleUser(id:number){
+    return await prisma.usuario.findFirst({
+        where:{
+            id:id
+        }
+    })
+}
