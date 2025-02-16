@@ -15,3 +15,11 @@ export async function createUsuario(data:any){
         }
     })
 }
+
+export async function deleteUser(id:number){
+    return await prisma.usuario.delete({
+        where: {
+            id:id
+        }
+    })
+}

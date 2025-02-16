@@ -23,6 +23,7 @@ function Registro() {
   const [aMat, setAMat] = useState("");
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
+  const [confClave, setConfClave] = useState("");
 
   useEffect(() => {
     toast.success("¡Página cargada!", { id: "loading" });
@@ -39,7 +40,8 @@ function Registro() {
         textoVacio(aPat) ||
         textoVacio(aMat) ||
         textoVacio(correo) ||
-        textoVacio(clave)
+        textoVacio(clave) ||
+        textoVacio(confClave)
       )
         throw new Error("Complete todos los datos");
 
@@ -52,6 +54,8 @@ function Registro() {
 
       if (correoInvalido(correo))
         throw new Error("Ingrese un correo con formato correcto.");
+
+      if (clave !== confClave) throw new Error("Las contraseñas no coindicen.");
 
       onOpen();
     } catch (e: any) {
@@ -79,63 +83,65 @@ function Registro() {
   }
 
   return (
-    <div className="flex flex-col p-10 gap-10">
+    <div className="flex flex-col p-10 gap-10 bg-zinc-900 h-screen w-screen text-zinc-300">
       <p>Registro</p>
       <Button onPress={regresarAInicio}>Regresar a inicio</Button>
-      <div className="flex flex-col gap-2">
-        <h1>Ingrese su información</h1>
-        <div className="flex flex-row gap-2 items-center">
-          <label>Nombre</label>
+      <div className="flex flex-col gap-2  p-3">
+        <h1 className="text-zinc-200 font-bold text-xl">
+          Ingrese su información
+        </h1>
+        <div className="flex flex-row gap-3 justify-between">
           <input
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            className="bg-zinc-100 rounded-md py-1 px-2"
-            placeholder="Ej. José"
+            className="bg-zinc-800 rounded-md py-3 px-2 w-1/3"
+            placeholder="Nombre"
           />
-        </div>
-        <div className="flex flex-row gap-2 items-center">
-          <label>Apellido paterno</label>
           <input
             value={aPat}
             onChange={(e) => setAPat(e.target.value)}
-            className="bg-zinc-100 rounded-md py-1 px-2"
-            placeholder="Ej. Fong"
+            className="bg-zinc-800 rounded-md py-1 px-2 w-1/3"
+            placeholder="Ap. Paterno"
           />
-        </div>
-        <div className="flex flex-row gap-2 items-center">
-          <label>Apellido Materno</label>
           <input
             value={aMat}
             onChange={(e) => setAMat(e.target.value)}
-            className="bg-zinc-100 rounded-md py-1 px-2"
-            placeholder="Ej. López"
+            className="bg-zinc-800 rounded-md py-1 px-2 w-1/3"
+            placeholder="Ap. Materno"
           />
         </div>
-        <div className="flex flex-row gap-2 items-center">
-          <label>Correo</label>
-          <input
-            type="email"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
-            className="bg-zinc-100 rounded-md py-1 px-2"
-            placeholder="Ej. fomi03@gmail.com"
-          />
-        </div>
-        <div className="flex flex-row gap-2 items-center">
-          <label>Clave</label>
-          <input
-            type="password"
-            value={clave}
-            onChange={(e) => setClave(e.target.value)}
-            className="bg-zinc-100 rounded-md py-1 px-2"
-            placeholder="Clave"
-          />
-        </div>
+
+        <input
+          type="email"
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+          className="bg-zinc-800 rounded-md py-3 px-2"
+          placeholder="Correo"
+        />
+        <input
+          type="password"
+          value={clave}
+          onChange={(e) => setClave(e.target.value)}
+          className="bg-zinc-800 rounded-md py-3 px-2"
+          placeholder="Clave"
+        />
+        <input
+          type="password"
+          value={confClave}
+          onChange={(e) => setConfClave(e.target.value)}
+          className="bg-zinc-800 rounded-md py-3 px-2"
+          placeholder="Confirmar clave"
+        />
         <Button color="primary" onPress={enviar}>
           Enviar
         </Button>
       </div>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size="lg"
+        backdrop="blur"
+      >
         <ModalContent>
           {(onClose) => (
             <>
